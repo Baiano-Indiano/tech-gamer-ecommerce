@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "overrides": [
+    {
+      "files": ["src/theme/styled.d.ts"],
+      "rules": {
+        "@typescript-eslint/no-empty-interface": "off"
+      }
+    }
+  ]
+}
