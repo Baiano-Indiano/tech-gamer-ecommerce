@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "addToCart": "Add to Cart",
+    "removeFromCart": "Remove from Cart",
+    "viewCart": "View Cart",
+    "checkout": "Checkout",
+    "continueShopping": "Continue Shopping",
+    "home": "Home",
+    "products": "Products",
+    "selectLanguage": "Select language",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to Checkout"
+  },
+  "product": {
+    "description": "Description",
+    "specifications": "Specifications",
+    "reviews": "Reviews"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Enter your login details",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot your password?",
+      "signIn": "Sign In",
+      "signingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Create an account",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone",
+      "phonePlaceholder": "(00) 00000-0000",
+      "cpf": "CPF",
+      "cpfPlaceholder": "000.000.000-00",
+      "birthDate": "Date of Birth",
+      "birthDatePlaceholder": "MM/DD/YYYY",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "newsletter": "I want to receive offers and news by email",
+      "createAccount": "Create Account",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "successTitle": "Account created successfully!",
+      "successMessage": "Your account has been created successfully. You can now log in.",
+      "loginLink": "Log in"
+    },
+    "errors": {
+      "requiredField": "This field is required",
+      "invalidEmail": "Please enter a valid email",
+      "invalidCPF": "Please enter a valid CPF",
+      "invalidPhone": "Please enter a valid phone number",
+      "invalidDate": "Please enter a valid date",
+      "passwordMismatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "invalidCredentials": "Invalid email or password",
+      "fillAllFields": "Please fill in all fields"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "cpf": "CPF",
+      "cpfPlaceholder": "000.000.000-00",
+      "phone": "Phone",
+      "phonePlaceholder": "(00) 00000-0000",
+      "birthDate": "Date of Birth",
+      "newsletter": "I want to receive offers and news by email",
+      "notProvided": "Not provided"
+    }
+  }
+}

@@ -1,53 +1,43 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
 import { useAuth } from './context/useAuth';
-import Header from './components/Header';
-import styled, { keyframes } from 'styled-components';
-
-// Importing the centralized theme
+import Navigation from './components/Navigation/Navigation';
 import { theme } from './theme';
 
-// Lazy loading for pages
-const Home = lazy(() => import('./pages/Home'));
-const Products = lazy(() => import('./pages/Products'));
-const Cart = lazy(() => import('./pages/Cart'));
-const ProfilePage = lazy(() => import('./pages/Profile'));
-const FavoritesPage = lazy(() => import('./pages/Favorites'));
-const Login = lazy(() => import('./pages/auth/Login'));
-const Register = lazy(() => import('./pages/auth/Register'));
-const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
-const Categories = lazy(() => import('./pages/Categories'));
-const Deals = lazy(() => import('./pages/Deals'));
-const About = lazy(() => import('./pages/About'));
-const ProductDetail = lazy(() => import('./pages/ProductDetail/ProductDetail'));
-
-// Loading animation
-const spin = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+// Estilos globais para o tema
+const ThemeStyles = createGlobalStyle`
+  :root {
+    color-scheme: light dark;
+  }
+  
+  body {
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  body.dark {
+    background-color: ${({ theme }) => theme.colors.backgroundDark};
+    color: ${({ theme }) => theme.colors.textDark};
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
 `;
 
-// Loading component
-const Spinner = styled.div`
-  width: 40px;
-  height: 40px;
-  margin: 100px auto;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top: 4px solid ${({ theme }) => theme.colors.primary};
-  animation: ${spin} 1s linear infinite;
-`;
-
-// Layout component
-const Layout = styled.div`
+const AppContainer = styled.div`
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 `;
 
-// Main content component
-const MainContent = styled.main`
+const Main = styled.main`
   flex: 1;
   padding: 2rem;
   max-width: 1200px;
@@ -55,71 +45,96 @@ const MainContent = styled.main`
   margin: 0 auto;
 `;
 
-// Loading container for auth routes
-const LoadingContainer = styled.div`
+// Lazy loading for pages
+const Home = lazy(() => import('./pages/Home'));
+const Products = lazy(() => import('./pages/Products'));
+const ProductDetails = lazy(() => import('./pages/ProductDetails'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Checkout = lazy(() => import('./pages/Checkout'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Orders = lazy(() => import('./pages/Orders'));
+const OrderDetails = lazy(() => import('./pages/OrderDetails'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Loading animation
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 300px;
+  min-height: 100vh;
+  
+  &::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid ${({ theme }) => theme.colors.primary};
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: ${spin} 1s linear infinite;
+  }
 `;
 
-// Protected route component
-const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+// Protected Route component
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  requireAdmin?: boolean;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requireAdmin = false }) => {
+  const { user, isLoading } = useAuth();
   const location = useLocation();
 
   if (isLoading) {
-    return (
-      <LoadingContainer>
-        <Spinner />
-      </LoadingContainer>
-    );
+    return <Loading />;
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // Removido a verificação de isAdmin já que não está no tipo UserProfile
+  // Pode ser implementado posteriormente se necessário
+  if (requireAdmin) {
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
 };
 
-// Guest route component (for authentication pages)
-const GuestRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+// Guest Route component (for authentication pages)
+const GuestRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user } = useAuth();
   const location = useLocation();
-  const from = (location.state as { from?: Location })?.from?.pathname || '/';
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
 
-  if (isLoading) {
-    return (
-      <LoadingContainer>
-        <Spinner />
-      </LoadingContainer>
-    );
-  }
-
-  if (isAuthenticated) {
+  if (user) {
     return <Navigate to={from} replace />;
   }
 
   return <>{children}</>;
 };
 
-// Main App component
-const App = () => {
+// App component
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Layout>
-        <Header />
-        <MainContent>
-          <Suspense fallback={<Spinner />}>
+      <ThemeStyles />
+      <AppContainer>
+        <Navigation />
+        <Main>
+          <Suspense fallback={<Loading />}>
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/deals" element={<Deals />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
               
               {/* Authentication routes */}
               <Route path="/login" element={
@@ -132,35 +147,40 @@ const App = () => {
                   <Register />
                 </GuestRoute>
               } />
-              <Route path="/forgot-password" element={
-                <GuestRoute>
-                  <ForgotPassword />
-                </GuestRoute>
-              } />
               
               {/* Protected routes */}
               <Route path="/cart" element={
-                <PrivateRoute>
+                <ProtectedRoute>
                   <Cart />
-                </PrivateRoute>
+                </ProtectedRoute>
               } />
-              <Route path="/profile/*" element={
-                <PrivateRoute>
-                  <ProfilePage />
-                </PrivateRoute>
+              <Route path="/checkout" element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
               } />
-              <Route path="/favorites" element={
-                <PrivateRoute>
-                  <FavoritesPage />
-                </PrivateRoute>
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
+              <Route path="/orders" element={
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
+              } />
+              <Route path="/orders/:id" element={
+                <ProtectedRoute>
+                  <OrderDetails />
+                </ProtectedRoute>
               } />
               
-              {/* 404 route - Redirects to home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              {/* 404 route */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-        </MainContent>
-      </Layout>
+        </Main>
+      </AppContainer>
     </ThemeProvider>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { useAuth } from '../../context/useAuth';
 import { FiMail, FiLock, FiAlertCircle } from 'react-icons/fi';
@@ -10,6 +11,7 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
+  const { t } = useTranslation('auth');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const Login: React.FC = () => {
     setError('');
     
     if (!email || !password) {
-      setError('Please fill in all fields');
+      setError(t('errors.fillAllFields'));
       return;
     }
 
@@ -27,7 +29,7 @@ const Login: React.FC = () => {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setError('Invalid email or password');
+      setError(t('errors.invalidCredentials'));
       console.error('Login error:', err);
     } finally {
       setIsLoading(false);
@@ -37,8 +39,8 @@ const Login: React.FC = () => {
   return (
     <LoginContainer>
       <LoginCard>
-        <Title>Sign in to your account</Title>
-        <Subtitle>Enter your login details</Subtitle>
+        <Title>{t('login.title')}</Title>
+        <Subtitle>{t('login.subtitle')}</Subtitle>
         
         {error && (
           <ErrorAlert>
@@ -49,7 +51,7 @@ const Login: React.FC = () => {
         
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="email">E-mail</Label>
+            <Label htmlFor="email">{t('login.email')}</Label>
             <InputGroup>
               <InputIcon>
                 <FiMail size={20} />
@@ -59,7 +61,7 @@ const Login: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
+                placeholder={t('login.emailPlaceholder')}
                 autoComplete="email"
                 required
               />
@@ -67,7 +69,7 @@ const Login: React.FC = () => {
           </FormGroup>
           
           <FormGroup>
-            <Label htmlFor="password">Senha</Label>
+            <Label htmlFor="password">{t('login.password')}</Label>
             <InputGroup>
               <InputIcon>
                 <FiLock size={20} />
@@ -77,23 +79,23 @@ const Login: React.FC = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Your password"
+                placeholder={t('login.passwordPlaceholder')}
                 autoComplete="current-password"
                 required
               />
             </InputGroup>
             <ForgotPassword to="/forgot-password">
-              Forgot your password?
+              {t('login.forgotPassword')}
             </ForgotPassword>
           </FormGroup>
           
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Signing in...' : 'Sign In'}
+            {isLoading ? t('login.signingIn') : t('login.signIn')}
           </Button>
         </Form>
         
         <SignupText>
-          Don't have an account? <SignupLink to="/register">Sign up</SignupLink>
+          {t('login.noAccount')} <SignupLink to="/register">{t('login.signUp')}</SignupLink>
         </SignupText>
       </LoginCard>
     </LoginContainer>
@@ -105,30 +107,33 @@ const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   padding: 2rem;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: #f9fafb;
 `;
 
 const LoginCard = styled.div`
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 2.5rem;
   width: 100%;
-  max-width: 450px;
+  max-width: 32rem;
+  padding: 3rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 `;
 
 const Title = styled.h1`
-  font-size: 1.75rem;
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.75rem;
+  text-align: center;
 `;
 
 const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  color: #4b5563;
+  margin-bottom: 2.5rem;
+  text-align: center;
 `;
 
 const ErrorAlert = styled.div`
@@ -146,7 +151,7 @@ const ErrorAlert = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
 `;
 
 const FormGroup = styled.div`
@@ -157,7 +162,7 @@ const FormGroup = styled.div`
 
 const Label = styled.label`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: #111827;
   font-weight: 500;
 `;
 
@@ -170,70 +175,91 @@ const InputGroup = styled.div`
 const InputIcon = styled.span`
   position: absolute;
   left: 1rem;
-  color: ${({ theme }) => theme.colors.gray};
+  color: #4b5563;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 3rem;
-  border: 1px solid #E2E8F0;
-  border-radius: 6px;
+  padding: 1rem 1rem 1rem 3rem;
   font-size: 1rem;
-  transition: border-color 0.2s;
-  
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.primary};
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    transform: translateY(-1px);
   }
 `;
 
 const ForgotPassword = styled(Link)`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.primary};
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  color: #4f46e5;
   text-decoration: none;
-  margin-top: 0.5rem;
-  align-self: flex-end;
-  
+  font-weight: 500;
+  transition: all 0.2s;
+  padding: 0.25rem 0;
+
   &:hover {
+    color: #4338ca;
     text-decoration: underline;
+    transform: translateX(2px);
   }
 `;
 
 const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary};
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
   color: white;
+  background-color: #4f46e5;
   border: none;
-  border-radius: 6px;
-  padding: 0.875rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.2s;
   margin-top: 1rem;
-  
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
   &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
   }
-  
+
+  &:active {
+    transform: translateY(0);
+  }
+
   &:disabled {
-    background-color: #94A3B8;
+    opacity: 0.7;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 `;
 
 const SignupText = styled.p`
   text-align: center;
-  margin-top: 1.5rem;
-  color: ${({ theme }) => theme.colors.gray};
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #4b5563;
 `;
 
 const SignupLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: 500;
+  color: #4f46e5;
+  font-weight: 600;
   text-decoration: none;
-  
+  margin-left: 0.5rem;
+  transition: color 0.2s;
+
   &:hover {
+    color: #4338ca;
     text-decoration: underline;
   }
 `;

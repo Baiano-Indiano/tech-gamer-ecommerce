@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../../../context/useAuth';
 import styled from 'styled-components';
 import { FiHeart, FiShoppingCart, FiTrash2, FiPlus } from 'react-icons/fi';
-import { useCart } from '../../../context/CartContext';
+import { useCart } from '../../../context/hooks/useCart';
 
 interface WishlistItem {
   id: string;

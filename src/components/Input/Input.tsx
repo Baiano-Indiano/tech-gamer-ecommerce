@@ -14,8 +14,8 @@ const InputContainer = styled.div<{ $width?: string | number; $disabled?: boolea
 
 const Label = styled.label<{ $required?: boolean; $disabled?: boolean }>`
   display: inline-block;
-  margin-bottom: 0.5rem;
-  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
   font-weight: 500;
   color: ${({ theme, $disabled }) => {
     if ($disabled) {
@@ -123,17 +123,18 @@ interface StyledInputProps {
 }
 
 const StyledInput = styled.input<StyledInputProps>(
-  ({ $hasIcon = false, $hasRightElement = false }) => css`
+  ({ $hasIcon, $hasRightElement }) => css`
     flex: 1;
     width: 100%;
-    height: 100%;
-    padding: 0 ${$hasRightElement ? '2.5rem' : '1rem'} 0 ${$hasIcon ? '2.5rem' : '1rem'};
-    border: none;
-    background: transparent;
-    font-family: inherit;
-    font-size: inherit;
+    height: 3.5rem;
+    padding: 1rem ${$hasRightElement ? '3.5rem' : '1.25rem'} 1rem ${$hasIcon ? '3.5rem' : '1.25rem'};
+    font-size: 1.0625rem;
+    line-height: 1.5;
     color: ${({ theme }) => theme.colors.text};
-    outline: none;
+    background-color: ${({ theme }) => theme.colors.background};
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    border-radius: 0.625rem;
+    transition: all 0.2s ease;
     
     &::placeholder {
       color: ${({ theme }) => 
@@ -164,10 +165,13 @@ const IconContainer = styled.span<{ $position: 'left' | 'right' }>`
 
 const StatusIcon = styled.span<{ $type: 'error' | 'success' | 'warning' | 'loading' }>`
   position: absolute;
-  right: 0.75rem;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.25rem;
   color: ${({ theme, $type }) => {
     const { colors } = theme;
     switch ($type) {

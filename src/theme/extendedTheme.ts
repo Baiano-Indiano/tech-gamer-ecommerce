@@ -14,10 +14,15 @@ export const colors: ThemeColors = {
   
   // Cores de feedback
   success: '#10b981',
+  successLight: '#d1fae5',
   error: '#ef4444',
+  errorLight: '#fee2e2',
   warning: '#f59e0b',
+  warningLight: '#fef3c7',
   info: '#3b82f6',
+  infoLight: '#dbeafe',
   white: '#ffffff',
+  black: '#000000',
   
   // Tons de cinza
   gray: {
@@ -32,20 +37,29 @@ export const colors: ThemeColors = {
     800: '#1f2937',
     900: '#111827',
   },
+  gray100: '#f3f4f6',
+  gray700: '#374151',
   
   // Cores de fundo
   background: '#ffffff',
   backgroundSecondary: '#f9fafb',
+  backgroundDark: '#1f2937',
+  backgroundSecondaryDark: '#111827',
   
   // Texto
   text: '#1f2937',
   textSecondary: '#4b5563',
   textTertiary: '#6b7280',
+  textDark: '#f9fafb',
+  textSecondaryDark: '#e5e7eb',
   
   // Bordas
   border: '#e5e7eb',
   borderHover: '#d1d5db',
   borderActive: '#9ca3af',
+  borderDark: '#374151',
+  borderHoverDark: '#4b5563',
+  borderActiveDark: '#6b7280',
 };
 
 // Tamanhos de fonte

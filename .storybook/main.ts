@@ -1,4 +1,6 @@
-module.exports = {
+import type { StorybookConfig } from '@storybook/react-vite';
+
+const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-essentials',
@@ -10,9 +12,11 @@ module.exports = {
     options: {},
   },
   core: {
-    builder: '@storybook/builder-vite',
+    disableTelemetry: true,
   },
-  features: {
-    storyStoreV7: true,
+  docs: {
+    autodocs: 'tag',
   },
 };
+
+export default config;

@@ -14,26 +14,53 @@ export type ColorScale = {
 
 // Theme colors interface
 export interface ThemeColors {
+  // Cores principais
   primary: string;
   primaryDark: string;
   primaryLight: string;
+  
+  // Cores secundárias
   secondary: string;
   secondaryDark: string;
   secondaryLight: string;
+  
+  // Cores de feedback
   success: string;
+  successLight: string;
   error: string;
+  errorLight: string;
   warning: string;
+  warningLight: string;
   info: string;
+  infoLight: string;
+  
+  // Cores neutras
   white: string;
+  black: string;
   gray: ColorScale;
+  gray100: string;
+  gray700: string;
+  
+  // Cores de fundo
   background: string;
   backgroundSecondary: string;
+  backgroundDark: string;
+  backgroundSecondaryDark: string;
+  
+  // Cores de texto
   text: string;
   textSecondary: string;
   textTertiary: string;
+  textDark: string;
+  textSecondaryDark: string;
+  
+  // Cores de borda
   border: string;
   borderHover: string;
   borderActive: string;
+  borderDark: string;
+  borderHoverDark: string;
+  borderActiveDark: string;
 }
 
 // Theme breakpoints interface

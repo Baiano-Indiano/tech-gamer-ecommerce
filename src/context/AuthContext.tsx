@@ -10,5 +10,6 @@ import type { AuthContextType } from './AuthContext.types';
  */
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// O componente AuthProvider foi movido para ./AuthProvider.tsx
-// O hook useAuth foi movido para ./useAuth.ts
+// Exporta o hook useAuth
+import { useAuth } from './useAuth';
+export { useAuth };

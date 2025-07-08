@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "success": "Sucesso",
+    "addToCart": "Adicionar ao Carrinho",
+    "removeFromCart": "Remover do Carrinho",
+    "viewCart": "Ver Carrinho",
+    "checkout": "Finalizar Compra",
+    "continueShopping": "Continuar Comprando",
+    "home": "Início",
+    "products": "Produtos",
+    "selectLanguage": "Selecionar idioma",
+    "edit": "Editar",
+    "save": "Salvar",
+    "cancel": "Cancelar"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
+  },
+  "cart": {
+    "title": "Carrinho de Compras",
+    "empty": "Seu carrinho está vazio",
+    "subtotal": "Subtotal",
+    "shipping": "Frete",
+    "total": "Total",
+    "proceedToCheckout": "Finalizar Pedido"
+  },
+  "product": {
+    "description": "Descrição",
+    "specifications": "Especificações",
+    "reviews": "Avaliações"
+  },
+  "auth": {
+    "login": {
+      "title": "Entrar na sua conta",
+      "subtitle": "Digite seus dados de acesso",
+      "email": "E-mail",
+      "emailPlaceholder": "seu@email.com",
+      "password": "Senha",
+      "passwordPlaceholder": "Digite sua senha",
+      "forgotPassword": "Esqueceu sua senha?",
+      "signIn": "Entrar",
+      "signingIn": "Entrando...",
+      "noAccount": "Não tem uma conta?",
+      "signUp": "Cadastre-se"
+    },
+    "register": {
+      "title": "Criar uma conta",
+      "name": "Nome Completo",
+      "namePlaceholder": "Digite seu nome completo",
+      "email": "E-mail",
+      "emailPlaceholder": "seu@email.com",
+      "phone": "Telefone",
+      "phonePlaceholder": "(00) 00000-0000",
+      "cpf": "CPF",
+      "cpfPlaceholder": "000.000.000-00",
+      "birthDate": "Data de Nascimento",
+      "birthDatePlaceholder": "DD/MM/AAAA",
+      "password": "Senha",
+      "passwordPlaceholder": "Mínimo 8 caracteres",
+      "confirmPassword": "Confirmar Senha",
+      "confirmPasswordPlaceholder": "Confirme sua senha",
+      "newsletter": "Desejo receber ofertas e novidades por e-mail",
+      "createAccount": "Criar Conta",
+      "haveAccount": "Já possui uma conta?",
+      "signIn": "Entrar",
+      "successTitle": "Conta criada com sucesso!",
+      "successMessage": "Sua conta foi criada com sucesso. Agora você pode fazer login.",
+      "loginLink": "Fazer login"
+    },
+    "errors": {
+      "requiredField": "Este campo é obrigatório",
+      "invalidEmail": "Por favor, insira um e-mail válido",
+      "invalidCPF": "Por favor, insira um CPF válido",
+      "invalidPhone": "Por favor, insira um telefone válido",
+      "invalidDate": "Por favor, insira uma data válida",
+      "passwordMismatch": "As senhas não conferem",
+      "passwordTooShort": "A senha deve ter pelo menos 8 caracteres",
+      "invalidCredentials": "E-mail ou senha inválidos",
+      "fillAllFields": "Por favor, preencha todos os campos"
+    }
+  },
+  "profile": {
+    "title": "Meu Perfil",
+    "form": {
+      "name": "Nome Completo",
+      "namePlaceholder": "Digite seu nome completo",
+      "email": "E-mail",
+      "emailPlaceholder": "Digite seu e-mail",
+      "cpf": "CPF",
+      "cpfPlaceholder": "000.000.000-00",
+      "phone": "Telefone",
+      "phonePlaceholder": "(00) 00000-0000",
+      "birthDate": "Data de Nascimento",
+      "newsletter": "Desejo receber ofertas e novidades por e-mail",
+      "notProvided": "Não informado"
+    }
+  }
+}

@@ -82,6 +82,11 @@ const InteractiveFeedback = () => {
 };
 
 export const InteractiveExample: Story = {
+  args: {
+    type: 'info',
+    message: 'This is an interactive example',
+    show: true,
+  },
   render: () => <InteractiveFeedback />,
 };
 

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../context/useAuth';
 import styled from 'styled-components';
 import { FiEdit2, FiSave, FiX } from 'react-icons/fi';
 
 export const ProfileInfo: React.FC = () => {
+  const { t } = useTranslation();
   const { user, updateProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -41,26 +43,26 @@ export const ProfileInfo: React.FC = () => {
   return (
     <Container>
       <Header>
-        <h2>My Profile</h2>
+        <h2>{t('profile.title')}</h2>
         {isEditing ? (
           <ButtonGroup>
             <Button type="button" $variant="outline" onClick={() => setIsEditing(false)}>
-              <FiX /> Cancel
+              <FiX /> {t('common.cancel')}
             </Button>
             <Button type="submit" form="profileForm" $variant="primary">
-              <FiSave /> Save
+              <FiSave /> {t('common.save')}
             </Button>
           </ButtonGroup>
         ) : (
           <Button onClick={() => setIsEditing(true)}>
-            <FiEdit2 /> Edit
+            <FiEdit2 /> {t('common.edit')}
           </Button>
         )}
       </Header>
 
       <Form id="profileForm" onSubmit={handleSubmit}>
         <FormGroup>
-          <Label htmlFor="name">Full Name</Label>
+          <Label htmlFor="name">{t('profile.form.name')}</Label>
           {isEditing ? (
             <Input
               type="text"
@@ -69,6 +71,7 @@ export const ProfileInfo: React.FC = () => {
               value={formData.name}
               onChange={handleChange}
               required
+              placeholder={t('profile.form.namePlaceholder')}
             />
           ) : (
             <p>{user.name}</p>
@@ -76,7 +79,7 @@ export const ProfileInfo: React.FC = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t('profile.form.email')}</Label>
           {isEditing ? (
             <Input
               type="email"
@@ -85,14 +88,15 @@ export const ProfileInfo: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              placeholder={t('profile.form.emailPlaceholder')}
             />
           ) : (
-            <p>{user.email}</p>
+            <p>{user.email || t('profile.form.notProvided')}</p>
           )}
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="cpf">CPF</Label>
+          <Label htmlFor="cpf">{t('profile.form.cpf')}</Label>
           {isEditing ? (
             <Input
               type="text"
@@ -100,15 +104,16 @@ export const ProfileInfo: React.FC = () => {
               name="cpf"
               value={formData.cpf}
               onChange={handleChange}
-              placeholder="000.000.000-00"
+              placeholder={t('profile.form.cpfPlaceholder')}
+              pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
             />
           ) : (
-            <p>{user.cpf || 'Not provided'}</p>
+            <p>{user.cpf || t('profile.form.notProvided')}</p>
           )}
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="phone">Phone</Label>
+          <Label htmlFor="phone">{t('profile.form.phone')}</Label>
           {isEditing ? (
             <Input
               type="tel"
@@ -116,15 +121,15 @@ export const ProfileInfo: React.FC = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="(00) 00000-0000"
+              placeholder={t('profile.form.phonePlaceholder')}
             />
           ) : (
-            <p>{user.phone || 'Not provided'}</p>
+            <p>{user.phone || t('profile.form.notProvided')}</p>
           )}
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="birthDate">Date of Birth</Label>
+          <Label htmlFor="birthDate">{t('profile.form.birthDate')}</Label>
           {isEditing ? (
             <Input
               type="date"
@@ -134,7 +139,7 @@ export const ProfileInfo: React.FC = () => {
               onChange={handleChange}
             />
           ) : (
-            <p>{user.birthDate ? new Date(user.birthDate).toLocaleDateString('en-US') : 'Not provided'}</p>
+            <p>{user.birthDate ? new Date(user.birthDate).toLocaleDateString() : t('profile.form.notProvided')}</p>
           )}
         </FormGroup>
 
@@ -148,7 +153,7 @@ export const ProfileInfo: React.FC = () => {
               onChange={handleChange}
               disabled={!isEditing}
             />
-            <Label htmlFor="newsletter">I want to receive offers and news by email</Label>
+            <Label htmlFor="newsletter">{t('profile.form.newsletter')}</Label>
           </CheckboxContainer>
         </FormGroup>
       </Form>

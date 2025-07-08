@@ -1,14 +1,9 @@
-// Context
-import { CartContext } from './CartContext';
+// Re-exporta o contexto, provider e hooks do carrinho
+export { CartContext, useCart } from './CartContext';
+export { CartProvider } from './CartProvider';
 
-// Providers
-export { CartProvider } from './providers/CartProvider';
+// Exporta os tipos
+export type { CartContextType, CartProviderProps } from './cart.types';
 
-// Hooks
-export { useCart } from './hooks/useCart';
-
-// Types
-export type { CartContextType, CartProviderProps } from './types/cart.types';
-
-// Re-export context for direct usage if needed
-export { CartContext };
+// Exporta os cupons disponíveis
+export { AVAILABLE_COUPONS } from './cart.types';

@@ -1,5 +1,7 @@
+import type { ThemeColors, ThemeFonts, ThemeFontSizes, ThemeFontWeights, ThemeSpace, ThemeRadii, ThemeShadows, ThemeBreakpoints, ThemeLineHeights, ThemeTransitions, Theme } from './theme.types';
+
 // Cores
-export const colors = {
+export const colors: ThemeColors = {
   // Cores principais
   primary: '#2563eb',
   primaryDark: '#1d4ed8',
@@ -47,13 +49,13 @@ export const colors = {
 };
 
 // Tipografia
-export const fonts = {
+export const fonts: ThemeFonts = {
   body: '"Inter", system-ui, -apple-system, sans-serif',
   heading: '"Inter", system-ui, -apple-system, sans-serif',
   mono: 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
 };
 
-export const fontSizes = {
+export const fontSizes: ThemeFontSizes = {
   xs: '1.2rem',
   sm: '1.4rem',
   base: '1.6rem',
@@ -65,7 +67,7 @@ export const fontSizes = {
   '5xl': '4.8rem',
 };
 
-export const fontWeights = {
+export const fontWeights: ThemeFontWeights = {
   normal: 400,
   medium: 500,
   semibold: 600,
@@ -73,7 +75,7 @@ export const fontWeights = {
 };
 
 // Espaçamentos
-export const space = {
+export const space: ThemeSpace = {
   0: '0',
   1: '0.8rem',
   2: '1.6rem',
@@ -88,7 +90,7 @@ export const space = {
 };
 
 // Bordas
-export const radii = {
+export const radii: ThemeRadii = {
   none: '0',
   sm: '0.4rem',
   base: '0.8rem',
@@ -100,7 +102,7 @@ export const radii = {
 };
 
 // Sombras
-export const shadows = {
+export const shadows: ThemeShadows = {
   sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
   base: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
   md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
@@ -113,7 +115,7 @@ export const shadows = {
 };
 
 // Breakpoints
-export const breakpoints = {
+export const breakpoints: ThemeBreakpoints = {
   mobile: '320px',
   tablet: '640px',
   sm: '640px',
@@ -124,7 +126,7 @@ export const breakpoints = {
 };
 
 // Alturas de linha
-export const lineHeights = {
+export const lineHeights: ThemeLineHeights = {
   none: '1',
   tight: '1.25',
   snug: '1.375',
@@ -134,14 +136,14 @@ export const lineHeights = {
 };
 
 // Transições
-export const transitions = {
+export const transitions: ThemeTransitions = {
   default: 'all 0.2s ease-in-out',
   fast: 'all 0.1s ease-in-out',
   slow: 'all 0.3s ease-in-out',
 };
 
 // Tema principal
-export const theme = {
+const baseTheme: Omit<Theme, 'border' | 'borderHover' | 'borderActive'> = {
   colors,
   fonts,
   fontSizes,
@@ -153,5 +155,12 @@ export const theme = {
   lineHeights,
   transitions,
 };
+
+export const theme = {
+  ...baseTheme,
+  border: colors.border,
+  borderHover: colors.borderHover,
+  borderActive: colors.borderActive,
+} as const;
 
 export default theme;

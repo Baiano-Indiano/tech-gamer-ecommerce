@@ -72,6 +72,7 @@ export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
   );
 };
 
-// O hook useFavorites foi movido para src/context/hooks/useFavorites.ts
+// Exporta o hook useFavorites
+export { useFavorites } from './hooks/useFavorites';
 
 export default FavoritesProvider;

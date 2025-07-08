@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
+import { FiAlertCircle } from 'react-icons/fi';
 
 type InputGroupBaseProps = {
   /**
@@ -64,14 +65,14 @@ type InputGroupProps = InputGroupBaseProps & {
 const InputGroupContainer = styled.div<{ $fullWidth: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
   width: ${({ $fullWidth }) => ($fullWidth ? '100%' : 'fit-content')};
   position: relative;
   
   label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: ${({ theme }) => theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.text};
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -84,16 +85,13 @@ const InputGroupContainer = styled.div<{ $fullWidth: boolean }>`
   }
 `;
 
+
+
 const InputWrapper = styled.div<{ $hasStartIcon: boolean; $hasEndIcon: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  
-  /* Estilo para garantir que o input interno ocupe toda a largura */
-  & > div {
-    width: 100%;
-  }
 `;
 
 const IconContainer = styled.span<{ $position: 'start' | 'end' }>`
@@ -102,7 +100,9 @@ const IconContainer = styled.span<{ $position: 'start' | 'end' }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.colors.gray[400]};
+  color: ${({ theme }) => theme.colors.text};
+  opacity: 0.7;
+  font-size: 1.25rem;
   z-index: 1;
   
   svg {
@@ -114,14 +114,27 @@ const IconContainer = styled.span<{ $position: 'start' | 'end' }>`
 const StyledInput = styled.div<{ $hasStartIcon: boolean; $hasEndIcon: boolean }>`
   flex: 1;
   width: 100%;
+  height: 100%;
   
   /* Ajusta o padding dos inputs internos baseado nos ícones */
   .input-container {
     width: 100%;
+    height: 100%;
     
     input {
-      padding-left: ${({ $hasStartIcon }) => ($hasStartIcon ? '3rem' : '1rem')} !important;
-      padding-right: ${({ $hasEndIcon }) => ($hasEndIcon ? '3rem' : '1rem')} !important;
+      width: 100%;
+      height: 100%;
+      padding-left: ${({ $hasStartIcon }) => ($hasStartIcon ? '3.5rem' : '1.25rem')} !important;
+      padding-right: ${({ $hasEndIcon }) => ($hasEndIcon ? '3.5rem' : '1.25rem')} !important;
+      font-size: 1.0625rem;
+      border: none;
+      background: transparent;
+      outline: none;
+      
+      &::placeholder {
+        color: ${({ theme }) => theme.colors.textSecondary};
+        opacity: 0.7;
+      }
     }
   }
 `;
@@ -199,21 +212,27 @@ const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(({
       </InputWrapper>
       
       {helperText && !error && (
-        <div className="helper-text" style={{
-          fontSize: '0.75rem',
-          color: '#6b7280',
-          marginTop: '0.25rem'
+        <div style={{
+          fontSize: '0.875rem',
+          color: '#6B7280',
+          marginTop: '0.5rem',
+          lineHeight: '1.4'
         }}>
           {helperText}
         </div>
       )}
       
       {error && (
-        <div className="error-text" style={{
-          fontSize: '0.75rem',
-          color: '#ef4444',
-          marginTop: '0.25rem'
+        <div style={{
+          fontSize: '0.875rem',
+          color: '#EF4444',
+          marginTop: '0.5rem',
+          lineHeight: '1.4',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem'
         }}>
+          <FiAlertCircle size={16} />
           {error}
         </div>
       )}

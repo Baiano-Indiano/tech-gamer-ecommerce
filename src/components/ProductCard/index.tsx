@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FiShoppingCart, FiStar, FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { useFavorites } from '../../context/FavoritesProvider';
+import { useFavorites } from '../../context/hooks/useFavorites';
 import type { Product } from '../../types/product';
 
 type ProductCardProps = {

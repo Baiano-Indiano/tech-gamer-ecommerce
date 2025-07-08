@@ -1,6 +1,9 @@
 import { createContext } from 'react';
 import type { CartItem, Coupon } from '../types';
 
+/**
+ * Tipo que define o formato do contexto do carrinho
+ */
 export interface CartContextType {
   items: CartItem[];
   coupon: Coupon | null;
@@ -15,10 +18,16 @@ export interface CartContextType {
   clearCart: () => void;
   applyCoupon: (code: string) => boolean;
   removeCoupon: () => void;
-};
+}
 
+/**
+ * Contexto do carrinho de compras
+ */
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
+/**
+ * Props para o componente CartProvider
+ */
 export interface CartProviderProps {
   children: React.ReactNode;
 }
