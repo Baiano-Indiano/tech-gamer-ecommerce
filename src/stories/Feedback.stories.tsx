@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Feedback } from '../components/ui/Feedback';
+import { Feedback } from '../components/feedback';
 
 const meta = {
   title: 'Components/Feedback',

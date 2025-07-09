@@ -1,73 +1,104 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { useAuth } from '../../context/useAuth';
-import { Button } from '../../components/ui/Button';
-import Input from '../../components/ui/Input';
-import { PasswordStrengthMeter } from '../../components/Input/PasswordStrengthMeter';
-import { FormContainer, FormTitle, Form, FormGroup } from '../Login/styles';
+import { Button } from '../../components/buttons';
+import { Input, PasswordStrengthMeter } from '../../components/forms/input';
+import { FormContainer, FormTitle, Form as StyledForm, FormGroup, ErrorMessage } from '../Login/styles';
+import { registerSchema } from '../../schemas/auth.schema';
+
+type RegisterFormData = yup.InferType<typeof registerSchema>;
+
+// Função auxiliar para calcular a força da senha
+function calculatePasswordStrength(password: string): number {
+  if (!password) return 0;
+  
+  let strength = 0;
+  
+  // Comprimento mínimo
+  if (password.length >= 8) strength++;
+  
+  // Contém letras minúsculas e maiúsculas
+  if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+  
+  // Contém números
+  if (/[0-9]/.test(password)) strength++;
+  
+  // Contém caracteres especiais
+  if (/[^A-Za-z0-9]/.test(password)) strength++;
+  
+  return Math.min(strength, 4);
+}
 
 const Register: React.FC = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [submitError, setSubmitError] = useState('');
   const { t } = useTranslation(['auth', 'common']);
-  const { register } = useAuth();
+  const { register: registerAuth } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (password !== confirmPassword) {
-      setError(t('errors.passwordMismatch'));
-      return;
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<RegisterFormData>({
+    resolver: yupResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
     }
+  });
 
-    setError('');
+  const password = watch('password');
+
+  const onSubmit = async (data: RegisterFormData) => {
+    setSubmitError('');
     setIsLoading(true);
 
     try {
-      // Primeiro, registra o usuário com os dados básicos
-      await register({
-        name,
-        email,
-        phone: '', // Será preenchido posteriormente
+      await registerAuth({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        phone: '',
         cpf: '',
         birthDate: '',
+        newsletter: false,
         avatar: '',
         addresses: [],
-        paymentMethods: [],
-        newsletter: false
+        paymentMethods: []
       });
       
-      // Se o registro for bem-sucedido, redireciona para a página inicial
       navigate('/');
     } catch (error) {
       console.error('Registration error:', error);
-      setError(t('errors.generic'));
+      setSubmitError(t('errors.generic'));
       setIsLoading(false);
     }
   };
 
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
         <FormTitle>{t('register.title')}</FormTitle>
         
-        {error && <div className="error">{error}</div>}
+        {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
         
         <FormGroup>
           <label htmlFor="name">{t('register.name')}</label>
           <Input
             id="name"
             type="text"
-            value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-            required
+            {...register('name')}
+            aria-invalid={errors.name ? 'true' : 'false'}
           />
+          {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
         </FormGroup>
         
         <FormGroup>
@@ -75,10 +106,10 @@ const Register: React.FC = () => {
           <Input
             id="email"
             type="email"
-            value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-            required
+            {...register('email')}
+            aria-invalid={errors.email ? 'true' : 'false'}
           />
+          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
         </FormGroup>
         
         <FormGroup>
@@ -86,11 +117,11 @@ const Register: React.FC = () => {
           <Input
             id="password"
             type="password"
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            required
+            {...register('password')}
+            aria-invalid={errors.password ? 'true' : 'false'}
           />
-          <PasswordStrengthMeter password={password} />
+          <PasswordStrengthMeter strength={calculatePasswordStrength(password)} />
+          {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
         </FormGroup>
         
         <FormGroup>
@@ -98,10 +129,12 @@ const Register: React.FC = () => {
           <Input
             id="confirmPassword"
             type="password"
-            value={confirmPassword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
-            required
+            {...register('confirmPassword')}
+            aria-invalid={errors.confirmPassword ? 'true' : 'false'}
           />
+          {errors.confirmPassword && (
+            <ErrorMessage>{errors.confirmPassword.message}</ErrorMessage>
+          )}
         </FormGroup>
         
         <Button type="submit" disabled={isLoading}>
@@ -112,7 +145,7 @@ const Register: React.FC = () => {
           {t('register.haveAccount')}{' '}
           <Link to="/login">{t('register.signIn')}</Link>
         </p>
-      </Form>
+      </StyledForm>
     </FormContainer>
   );
 };

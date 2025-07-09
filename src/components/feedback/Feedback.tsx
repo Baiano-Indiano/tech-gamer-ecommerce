@@ -130,27 +130,3 @@ export const Feedback = ({
   );
 };
 
-export const LoadingSpinner = styled.div`
-  width: 2rem;
-  height: 2rem;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: ${({ theme }) => theme.colors.primary};
-  animation: spin 1s ease-in-out infinite;
-  margin: 0 auto;
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-`;
-
-export const PageTransition = ({ children }: { children: React.ReactNode }) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.3 }}
-  >
-    {children}
-  </motion.div>
-);

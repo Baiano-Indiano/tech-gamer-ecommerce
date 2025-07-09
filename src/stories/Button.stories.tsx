@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AnimatedButton } from '../components/ui/AnimatedButton';
 import { FiShoppingCart } from 'react-icons/fi';
 

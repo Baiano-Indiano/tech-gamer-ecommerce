@@ -2,6 +2,8 @@ import React from 'react';
 import { useAuth } from '../../../context/useAuth';
 import styled from 'styled-components';
 import { FiPackage, FiTruck, FiCheckCircle, FiXCircle, FiClock, FiDollarSign } from 'react-icons/fi';
+import { formatCurrency } from '../../../utils/formatters/currency';
+import { formatDate } from '../../../utils/formatters/date';
 
 export const Orders: React.FC = () => {
   const { user } = useAuth();
@@ -147,23 +149,9 @@ export const Orders: React.FC = () => {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { 
-      day: '2-digit', 
-      month: '2-digit', 
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    };
-    return new Date(dateString).toLocaleDateString('pt-BR', options);
-  };
+  // Usando a função formatDate do módulo de utilitários
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(value);
-  };
+  // Usando a função formatCurrency do módulo de utilitários
 
   if (!user) return null;
 

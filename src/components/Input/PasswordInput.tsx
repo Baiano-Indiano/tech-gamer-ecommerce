@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff, FiLock } from 'react-icons/fi';
 import styled, { useTheme } from 'styled-components';
 import { Input } from './Input';
 import type { InputProps } from './types';
-import { PasswordStrengthMeter } from './PasswordStrengthMeter';
+import PasswordStrengthMeter from './PasswordStrengthMeter';
 
 // Helper hook for debouncing
 function useDebounce<T>(value: T, delay: number): T {

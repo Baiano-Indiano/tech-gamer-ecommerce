@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { FiShoppingCart, FiStar, FiTruck, FiShield, FiArrowLeft } from 'react-icons/fi';
-import type { Product, Review } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { FiShoppingCart, FiStar, FiTruck, FiShield, FiArrowLeft } from 'react-icons/fi';
+import { formatDate } from '../../utils/formatters/date';
+import styled from 'styled-components';
+import type { Product, Review } from '../../types';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -476,7 +477,7 @@ export const ProductDetails: React.FC<ProductDetailsProps> = ({ product, onAddTo
               <ReviewItem key={review.id}>
                 <ReviewHeader>
                   <ReviewAuthor>{review.user}</ReviewAuthor>
-                  <ReviewDate>{new Date(review.date).toLocaleDateString('pt-BR')}</ReviewDate>
+                  <ReviewDate>{formatDate(new Date(review.date))}</ReviewDate>
                 </ReviewHeader>
                 <ReviewRating>
                   {renderStars(review.rating)}

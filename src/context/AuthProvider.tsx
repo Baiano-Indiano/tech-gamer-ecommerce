@@ -123,24 +123,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [navigate]);
 
-  const register = useCallback(async (userData: Omit<UserProfile, 'id' | 'orders' | 'wishlist' | 'createdAt' | 'updatedAt'>) => {
+  // Tipo para os dados de registro, incluindo a senha
+  type RegisterData = Omit<UserProfile, 'id' | 'orders' | 'wishlist' | 'createdAt' | 'updatedAt'> & {
+    password: string;
+  };
+
+  const register = useCallback(async (userData: RegisterData) => {
     try {
       setIsLoading(true);
-      // Type assertion to handle the password field which comes from the form
-      // Create registration data with proper typing
+      // Cria os dados de registro com a senha fornecida
       const registerData = {
         name: userData.name,
         email: userData.email,
-        password: 'dummy-password', // This should come from the form
+        password: userData.password, // Usando a senha fornecida
         ...(userData.phone && { phone: userData.phone }),
         ...(userData.cpf && { cpf: userData.cpf }),
         ...(userData.birthDate && { birthDate: userData.birthDate }),
-        // Add any other required fields here
+        // Inclui outros campos opcionais
+        ...(userData.avatar && { avatar: userData.avatar }),
+        ...(userData.addresses && { addresses: userData.addresses }),
+        ...(userData.paymentMethods && { paymentMethods: userData.paymentMethods }),
+        ...(userData.newsletter !== undefined && { newsletter: userData.newsletter })
       };
       
-      // Type the register data with password field
-      type RegisterData = typeof registerData & { password: string };
-      const response = await api.auth.register(registerData as RegisterData);
+      const response = await api.auth.register(registerData);
       const { user: registeredUser, token } = response;
       
       // Save token to localStorage

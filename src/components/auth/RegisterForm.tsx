@@ -2,9 +2,9 @@ import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiUser, FiMail, FiPhone, FiLock, FiCheck } from 'react-icons/fi';
 import styled from 'styled-components';
-import Input from '../Input/Input';
-import { InputGroup } from '../Input';
-import { validateCPF, validateEmail } from '../../utils/formatters';
+import { Input } from '../forms/input';
+import FormRow from '../forms/FormRow';
+import { validateCPF as validateCPFUtil, validateEmail } from '../../utils';
 
 // Tipos para os dados do formulário
 export interface RegisterFormData {
@@ -22,6 +22,38 @@ export interface RegisterFormData {
 type FormField = keyof RegisterFormData;
 
 // Styled components
+const FormField = styled.div<{ $hasError?: boolean; $fullWidth?: boolean }>`
+  margin-bottom: 1rem;
+  width: ${({ $fullWidth }) => ($fullWidth ? '100%' : 'auto')};
+  
+  .form-field-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: ${({ theme, $hasError }) => 
+      $hasError ? theme.colors.error : theme.colors.gray[700]};
+    font-size: 0.875rem;
+  }
+  
+  .form-field-required {
+    color: ${({ theme }) => theme.colors.error};
+    margin-left: 0.25rem;
+  }
+  
+  .form-field-error {
+    margin-top: 0.25rem;
+    color: ${({ theme }) => theme.colors.error};
+    font-size: 0.75rem;
+  }
+  
+  .form-field-icon {
+    color: ${({ theme }) => theme.colors.gray[400]};
+    margin-right: 0.5rem;
+  }
+`;
+
+
+
 const StyledButton = styled.button`
   margin-top: 1.5rem;
   width: 100%;
@@ -419,7 +451,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       case 'email':
         return !validateEmail(value) ? t('auth:errors.invalidEmail') : '';
       case 'cpf':
-        return value && !validateCPF(value) ? t('auth:errors.invalidCPF') : '';
+        return value && !validateCPFUtil(value) ? t('auth:errors.invalidCPF') : '';
       case 'phone':
         return value && value.replace(/\D/g, '').length < 10 ? t('auth:errors.invalidPhone') : '';
       case 'password':
@@ -512,123 +544,163 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       ) : (
         <>
           <FormRow>
-            <InputGroup
-              label={getLabel('name')}
-              startIcon={<FiUser />}
-              error={errors.name}
-              required
-            >
+            <FormField $hasError={!!errors.name} $fullWidth>
+              <label className="form-field-label">
+                {errors.name ? (
+                  <>
+                    <FiUser className="form-field-icon" />
+                    {errors.name}
+                  </>
+                ) : (
+                  <>
+                    <FiUser className="form-field-icon" />
+                    {getLabel('name')}
+                    <span className="form-field-required">*</span>
+                  </>
+                )}
+              </label>
               <Input
-                label=""
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder={getPlaceholder('name')}
                 disabled={isLoading || isSubmitting}
+                fullWidth
               />
-            </InputGroup>
+            </FormField>
           </FormRow>
           
           <FormRow>
-            <InputGroup
-              label={getLabel('email')}
-              startIcon={<FiMail />}
-              error={errors.email}
-              required
-            >
+            <FormField $hasError={!!errors.email} $fullWidth>
+              <label className="form-field-label">
+                {errors.email ? (
+                  <>
+                    <FiMail className="form-field-icon" />
+                    {errors.email}
+                  </>
+                ) : (
+                  <>
+                    <FiMail className="form-field-icon" />
+                    {getLabel('email')}
+                    <span className="form-field-required">*</span>
+                  </>
+                )}
+              </label>
               <Input
-                label=""
                 name="email"
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder={getPlaceholder('email')}
                 disabled={isLoading || isSubmitting}
+                fullWidth
               />
-            </InputGroup>
+            </FormField>
           </FormRow>
           
-          <FormRow>
-            <InputGroup
-              label={getLabel('cpf')}
-              error={errors.cpf}
-            >
+          <FormRow columns={2} marginBottom={1}>
+            <FormField $hasError={!!errors.cpf}>
+              <label className="form-field-label">
+                {errors.cpf || getLabel('cpf')}
+                <span className="form-field-required">*</span>
+              </label>
               <Input
-                label=""
                 name="cpf"
                 value={formData.cpf}
                 onChange={handleInputChange}
                 placeholder={getPlaceholder('cpf')}
                 maxLength={14}
                 disabled={isLoading || isSubmitting}
+                fullWidth
               />
-            </InputGroup>
+              {errors.cpf && <div className="form-field-error">{errors.cpf}</div>}
+            </FormField>
             
-            <InputGroup
-              label={getLabel('birthDate')}
-            >
+            <FormField>
+              <label className="form-field-label">
+                {getLabel('birthDate')}
+              </label>
               <Input
-                label=""
                 name="birthDate"
                 type="date"
                 value={formData.birthDate}
                 onChange={handleInputChange}
                 disabled={isLoading || isSubmitting}
+                fullWidth
               />
-            </InputGroup>
+            </FormField>
           </FormRow>
           
           <FormRow>
-            <InputGroup
-              label={getLabel('phone')}
-              startIcon={<FiPhone />}
-            >
+            <FormField $fullWidth>
+              <label className="form-field-label">
+                <FiPhone className="form-field-icon" />
+                {getLabel('phone')}
+              </label>
               <Input
-                label=""
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
                 placeholder={getPlaceholder('phone')}
                 maxLength={15}
                 disabled={isLoading || isSubmitting}
+                fullWidth
               />
-            </InputGroup>
+            </FormField>
           </FormRow>
           
-          <FormRow>
-            <InputGroup
-              label={getLabel('password')}
-              startIcon={<FiLock />}
-              error={errors.password}
-              required
-            >
+          <FormRow columns={2} marginBottom={1}>
+            <FormField $hasError={!!errors.password}>
+              <label className="form-field-label">
+                {errors.password ? (
+                  <>
+                    <FiLock className="form-field-icon" />
+                    {errors.password}
+                  </>
+                ) : (
+                  <>
+                    <FiLock className="form-field-icon" />
+                    {getLabel('password')}
+                    <span className="form-field-required">*</span>
+                  </>
+                )}
+              </label>
               <Input
-                label=""
                 name="password"
                 type="password"
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder={getPlaceholder('password')}
                 disabled={isLoading || isSubmitting}
+                fullWidth
               />
-            </InputGroup>
+            </FormField>
             
-            <InputGroup
-              label={getLabel('confirmPassword')}
-              startIcon={<FiLock />}
-              error={errors.confirmPassword}
-              required
-            >
+            <FormField $hasError={!!errors.confirmPassword}>
+              <label className="form-field-label">
+                {errors.confirmPassword ? (
+                  <>
+                    <FiLock className="form-field-icon" />
+                    {errors.confirmPassword}
+                  </>
+                ) : (
+                  <>
+                    <FiLock className="form-field-icon" />
+                    {getLabel('confirmPassword')}
+                    <span className="form-field-required">*</span>
+                  </>
+                )}
+              </label>
               <Input
-                label=""
                 name="confirmPassword"
                 type="password"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 placeholder={getPlaceholder('confirmPassword')}
                 disabled={isLoading || isSubmitting}
+                fullWidth
               />
-            </InputGroup>
+            </FormField>
           </FormRow>
           
           <CheckboxContainer>

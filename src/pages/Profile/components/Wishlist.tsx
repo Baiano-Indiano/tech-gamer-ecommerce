@@ -3,6 +3,7 @@ import { useAuth } from '../../../context/useAuth';
 import styled from 'styled-components';
 import { FiHeart, FiShoppingCart, FiTrash2, FiPlus } from 'react-icons/fi';
 import { useCart } from '../../../context/hooks/useCart';
+import { formatCurrency } from '../../../utils/formatters/currency';
 
 interface WishlistItem {
   id: string;
@@ -119,12 +120,7 @@ export const Wishlist: React.FC = () => {
     });
   };
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(value);
-  };
+  // Usando a função formatCurrency do módulo de utilitários
 
   if (!user) return null;
 

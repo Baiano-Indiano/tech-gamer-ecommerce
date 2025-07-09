@@ -1,53 +1,70 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/useAuth';
-import { Button } from '../../components/ui/Button';
-import Input from '../../components/ui/Input';
-import { FormContainer, FormTitle, Form, FormGroup, FormFooter } from './styles';
+import { Button } from '../../components/buttons';
+import { Input } from '../../components/forms/input';
+import { FormContainer, FormTitle, StyledForm, FormGroup, FormFooter, ErrorMessage } from './styles';
+import { loginSchema } from '../../schemas/auth.schema';
+
+type LoginFormData = {
+  email: string;
+  password: string;
+};
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [submitError, setSubmitError] = useState('');
   const { t } = useTranslation('auth');
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginFormData>({
+    resolver: yupResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    setSubmitError('');
     setIsLoading(true);
 
     try {
-      await login(email, password);
+      await login(data.email, data.password);
       navigate(from, { replace: true });
     } catch (error) {
       console.error('Login error:', error);
-      setError(t('errors.invalidCredentials'));
+      setSubmitError(t('errors.invalidCredentials'));
       setIsLoading(false);
     }
   };
 
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
         <FormTitle>{t('login.title')}</FormTitle>
         
-        {error && <div className="error">{error}</div>}
+        {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
         
         <FormGroup>
           <label htmlFor="email">{t('login.email')}</label>
           <Input
             id="email"
             type="email"
-            value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-            required
+            {...register('email')}
+            aria-invalid={errors.email ? 'true' : 'false'}
           />
+          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
         </FormGroup>
         
         <FormGroup>
@@ -55,10 +72,10 @@ const Login: React.FC = () => {
           <Input
             id="password"
             type="password"
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            required
+            {...register('password')}
+            aria-invalid={errors.password ? 'true' : 'false'}
           />
+          {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
         </FormGroup>
         
         <Button type="submit" disabled={isLoading}>
@@ -69,7 +86,7 @@ const Login: React.FC = () => {
           <Link to="/register">{t('login.noAccount')} {t('login.signUp')}</Link>
           <Link to="/forgot-password">{t('login.forgotPassword')}</Link>
         </FormFooter>
-      </Form>
+      </StyledForm>
     </FormContainer>
   );
 };

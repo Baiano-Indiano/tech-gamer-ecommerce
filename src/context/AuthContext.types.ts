@@ -5,7 +5,7 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (userData: Omit<UserProfile, 'id' | 'createdAt' | 'updatedAt' | 'orders' | 'wishlist'>) => Promise<void>;
+  register: (userData: Omit<UserProfile, 'id' | 'createdAt' | 'updatedAt' | 'orders' | 'wishlist'> & { password: string }) => Promise<void>;
   logout: () => void;
   updateProfile: (userData: Partial<UserProfile>) => Promise<void>;
   addAddress: (address: Omit<UserAddress, 'id' | 'isDefault'>) => Promise<void>;

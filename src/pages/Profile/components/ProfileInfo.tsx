@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../context/useAuth';
 import styled from 'styled-components';
 import { FiEdit2, FiSave, FiX } from 'react-icons/fi';
+import { formatDate } from '../../../utils/formatters/date';
 
 export const ProfileInfo: React.FC = () => {
   const { t } = useTranslation();
@@ -139,7 +140,7 @@ export const ProfileInfo: React.FC = () => {
               onChange={handleChange}
             />
           ) : (
-            <p>{user.birthDate ? new Date(user.birthDate).toLocaleDateString() : t('profile.form.notProvided')}</p>
+            <p>{user.birthDate ? formatDate(new Date(user.birthDate)) : t('profile.form.notProvided')}</p>
           )}
         </FormGroup>
 

@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/useAuth';
+import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../utils/formatters/date';
+import styled from 'styled-components';
 import type { Order } from '../../types/order';
 
 const OrdersPage: React.FC = () => {
@@ -121,13 +122,7 @@ const OrdersPage: React.FC = () => {
     }
   };
 
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    }).format(date);
-  };
+  // Usando a função formatDate do módulo de utilitários
 
   if (isLoading) {
     return <LoadingContainer>Carregando pedidos...</LoadingContainer>;

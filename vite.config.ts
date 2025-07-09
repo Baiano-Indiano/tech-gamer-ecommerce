@@ -20,7 +20,15 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 5173,
       strictPort: true,
-      open: true
+      open: true,
+      hmr: {
+        protocol: 'ws',
+        host: 'localhost',
+        port: 5173
+      },
+      watch: {
+        usePolling: true
+      }
     },
     preview: {
       port: 5173,

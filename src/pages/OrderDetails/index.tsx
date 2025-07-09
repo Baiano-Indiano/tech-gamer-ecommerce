@@ -9,6 +9,7 @@ import {
   FiXCircle
 } from 'react-icons/fi';
 import { useAuth } from '../../context/useAuth';
+import { formatDate } from '../../utils/formatters/date';
 import {
   Container,
   BackButton,
@@ -151,15 +152,7 @@ const OrderDetailsPage: React.FC = () => {
     }
   }, [user, id]);
 
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(date);
-  };
+  // Usando a função formatDate do módulo de utilitários
 
   const getPaymentMethodText = (method: PaymentMethod) => {
     switch (method.type) {

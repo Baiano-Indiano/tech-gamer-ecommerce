@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import type { Product } from '../../types/product';
 import { mockProducts } from '../../constants/mockProducts';
-import { debounce } from '../../utils/searchUtils';
+import { debounce } from '../../utils/search';
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;

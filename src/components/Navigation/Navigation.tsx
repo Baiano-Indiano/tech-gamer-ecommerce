@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import ThemeToggle from '../buttons/ThemeToggle';
 
 const Nav = styled.nav`
   display: flex;

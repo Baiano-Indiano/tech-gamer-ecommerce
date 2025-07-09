@@ -7,7 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-export const AnimatedButton = styled(motion.button).attrs<ButtonProps>(() => ({
+const StyledButton = styled(motion.button).attrs<ButtonProps>(() => ({
   whileHover: { scale: 1.03 },
   whileTap: { scale: 0.98 },
   transition: { type: 'spring', stiffness: 400, damping: 10 }
@@ -72,3 +72,6 @@ export const AnimatedButton = styled(motion.button).attrs<ButtonProps>(() => ({
     cursor: not-allowed;
   }
 `;
+
+// Exporta o componente estilizado
+export default StyledButton;

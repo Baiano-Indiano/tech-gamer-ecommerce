@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
-import type { ButtonProps, Variant } from '../ui.types';
-import { Spinner } from '..';
+import type { ButtonProps, Variant } from '../../ui/ui.types';
+import Spinner from '../../feedback/Spinner';
 
 type ButtonVariant = Variant | 'outline' | 'ghost' | 'link';
 

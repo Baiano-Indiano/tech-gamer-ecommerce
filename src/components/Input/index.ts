@@ -6,4 +6,4 @@ export { default as PasswordInput } from './PasswordInput';
 export { default as InputGroup } from './InputGroup';
 
 // Exporta todos os componentes relacionados a inputs
-export * from './PasswordStrengthMeter';
+export { default as PasswordStrengthMeter } from './PasswordStrengthMeter';
