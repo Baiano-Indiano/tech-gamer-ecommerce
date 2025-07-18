@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useAuth } from '../../context/useAuth';
+import { useAuth } from '../../context/providers/AuthProvider/useAuth';
 import { Button } from '../../components/buttons';
 import { Input } from '../../components/forms/input';
 import { FormContainer, FormTitle, StyledForm, FormGroup, FormFooter, ErrorMessage } from './styles';

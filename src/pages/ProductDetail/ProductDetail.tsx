@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FiArrowLeft, FiHeart, FiShoppingCart, FiStar, FiTruck, FiShield, FiRefreshCw, FiAlertCircle, FiCreditCard } from 'react-icons/fi';
-import { useCart } from '../../context/CartContext';
-import { useFavorites } from '../../context/FavoritesProvider';
+import { useCart } from '../../context/cart/CartContext';
+import { useFavorites } from '../../context/providers/FavoritesProvider/FavoritesProvider';
 import type { Product } from '../../types/product';
 import api from '../../services/api';
 import { toast } from 'react-toastify';

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiArrowLeft } from 'react-icons/fi';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/cart/CartContext';
 import type { Product } from '../../types';
 import ProductDetails from '../../components/ProductDetails';
 import { toast } from 'react-toastify';

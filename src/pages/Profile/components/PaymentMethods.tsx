@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../../context/useAuth';
+import { useAuth } from '../../../context/providers/AuthProvider/useAuth';
 import styled from 'styled-components';
 import { FiPlus, FiEdit2, FiTrash2, FiCreditCard, FiCheck } from 'react-icons/fi';
 import type { UserPaymentMethod } from '../../../types/user';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuth } from '../../../context/useAuth';
+import { useAuth } from '../../../context/providers/AuthProvider/useAuth';
 import styled from 'styled-components';
 import { FiHeart, FiShoppingCart, FiTrash2, FiPlus } from 'react-icons/fi';
-import { useCart } from '../../../context/hooks/useCart';
+import { useCart } from '../../../context/providers/CartProvider/useCart';
 import { formatCurrency } from '../../../utils/formatters/currency';
 
 interface WishlistItem {

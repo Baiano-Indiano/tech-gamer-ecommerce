@@ -8,7 +8,7 @@ import {
   FiCheckCircle, 
   FiXCircle
 } from 'react-icons/fi';
-import { useAuth } from '../../context/useAuth';
+import { useAuth } from '../../context/providers/AuthProvider/useAuth';
 import { formatDate } from '../../utils/formatters/date';
 import {
   Container,

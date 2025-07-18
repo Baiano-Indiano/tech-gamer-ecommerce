@@ -14,7 +14,15 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, './src')
+        '@': resolve(__dirname, './src'),
+        '@app': resolve(__dirname, './src/app'),
+        '@assets': resolve(__dirname, './src/assets'),
+        '@components': resolve(__dirname, './src/components'),
+        '@features': resolve(__dirname, './src/features'),
+        '@lib': resolve(__dirname, './src/lib'),
+        '@services': resolve(__dirname, './src/services'),
+        '@stores': resolve(__dirname, './src/stores'),
+        '@types': resolve(__dirname, './src/types')
       }
     },
     server: {

@@ -1,4 +1,4 @@
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '../../context/providers/ThemeProvider/ThemeContext';
 import styled from 'styled-components';
 import { Moon, Sun } from 'lucide-react';
 import { useTranslation } from 'react-i18next';

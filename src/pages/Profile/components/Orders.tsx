@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../../../context/useAuth';
+import { useAuth } from '../../../context/providers/AuthProvider/useAuth';
 import styled from 'styled-components';
 import { FiPackage, FiTruck, FiCheckCircle, FiXCircle, FiClock, FiDollarSign } from 'react-icons/fi';
 import { formatCurrency } from '../../../utils/formatters/currency';

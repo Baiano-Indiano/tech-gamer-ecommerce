@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useFavorites } from '../../context/FavoritesProvider';
+import { useFavorites } from '../../context/providers/FavoritesProvider/FavoritesProvider';
 import ProductCard from '../../components/ProductCard';
 import { FiHeart, FiArrowLeft } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';

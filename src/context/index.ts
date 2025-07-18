@@ -1,9 +1,17 @@
-// Re-exporta o contexto, provider e hooks do carrinho
-export { CartContext, useCart } from './CartContext';
-export { CartProvider } from './CartProvider';
+// Auth
+export { AuthProvider } from '@/features/auth/context';
+export { AuthContext } from '@/features/auth/context';
+export { useAuth } from '@/features/auth/context';
+export type { AuthContextType, User } from '@/features/auth/context';
 
-// Exporta os tipos
-export type { CartContextType, CartProviderProps } from './cart.types';
+// Cart
+export { CartProvider, CartContext, useCart } from '@/features/cart/context';
+export type { CartContextType } from '@/features/cart/context';
 
-// Exporta os cupons disponíveis
-export { AVAILABLE_COUPONS } from './cart.types';
+// Favorites
+export { FavoritesProvider, FavoritesContext, useFavorites } from '@/features/favorites/context';
+export type { FavoritesContextType } from '@/features/favorites/context';
+
+// Theme
+export { ThemeProvider, useTheme } from '@/theme/context';
+export type { Theme } from '@/theme/context';

@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cores personalizadas */
+    --color-primary: 14 165 233; /* primary-500 */
+    --color-secondary: 99 102 241; /* indigo-500 */
+    --color-success: 22 163 74; /* green-600 */
+    --color-warning: 234 179 8; /* yellow-500 */
+    --color-danger: 239 68 68; /* red-500 */
+    --color-muted: 100 116 139; /* slate-500 */
+    
+    /* Tipografia */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
+    
+    /* Bordas */
+    --radius-sm: 0.25rem; /* 4px */
+    --radius-md: 0.5rem; /* 8px */
+    --radius-lg: 1rem; /* 16px */
+    --radius-xl: 1.5rem; /* 24px */
+    --radius-2xl: 2rem; /* 32px */
+    --radius-full: 9999px;
+  }
+
+  /* Estilos base */
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Estilos para scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/30;
+  }
+
+  /* Seleção de texto */
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+
+  /* Placeholder */
+  ::placeholder {
+    @apply text-muted-foreground/60;
+  }
+
+  /* Remove o botão de limpar do input no IE */
+  input[type='search']::-ms-clear,
+  input[type='search']::-ms-reveal {
+    @apply hidden w-0 h-0;
+  }
+
+  /* Remove o botão de mostrar senha no IE */
+  input[type='password']::-ms-reveal,
+  input[type='password']::-ms-clear {
+    @apply hidden;
+  }
+
+  /* Remove as setas dos inputs number */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* Container centralizado */
+  .container {
+    @apply px-4 mx-auto w-full sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1140px] 2xl:max-w-[1320px];
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-card text-card-foreground rounded-lg border shadow-sm overflow-hidden transition-shadow hover:shadow-md;
+  }
+
+  /* Botões */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+  
+  .btn-outline {
+    @apply border border-input hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .btn-link {
+    @apply underline-offset-4 hover:underline text-primary;
+  }
+  
+  .btn-sm {
+    @apply h-9 px-3 rounded-md text-xs;
+  }
+  
+  .btn-md {
+    @apply h-10 py-2 px-4 rounded-md text-sm;
+  }
+  
+  .btn-lg {
+    @apply h-11 px-8 rounded-md text-base;
+  }
+  
+  /* Inputs */
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+  
+  .badge-primary {
+    @apply border-transparent bg-primary text-primary-foreground hover:bg-primary/80;
+  }
+  
+  .badge-secondary {
+    @apply border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+  
+  .badge-outline {
+    @apply text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Animações */
+  .animate-in {
+    animation: animateIn 0.3s ease-out;
+  }
+  
+  @keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Layout */
+  .page-header {
+    @apply flex flex-col space-y-2 pb-8 pt-6 md:flex-row md:items-center md:justify-between md:space-y-0;
+  }
+  
+  .page-title {
+    @apply text-3xl font-bold tracking-tight;
+  }
+  
+  .page-description {
+    @apply text-muted-foreground;
+  }
+  
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Scroll snap */
+  .snap-x {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .snap-start {
+    scroll-snap-align: start;
+  }
+  
+  /* For Firefox */
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+  
+  /* For Chrome, Edge, and Safari */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Para navegadores baseados no Chromium */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(215.4 16.3% 46.9% / 0.2) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-muted-foreground/20 hover:bg-muted-foreground/30;
+  }
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+  
+  /* Ajustes específicos para dark mode */
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Ajustes de contraste */
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='datetime-local'],
+  input[type='month'],
+  input[type='time'],
+  input[type='week'],
+  select,
+  textarea {
+    @apply bg-background text-foreground;
+  }
+}

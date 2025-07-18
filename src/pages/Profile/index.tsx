@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../context/useAuth';
+import { useAuth } from '../../context/providers/AuthProvider/useAuth';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiUser, FiMapPin, FiCreditCard, FiPackage, FiHeart, FiLogOut } from 'react-icons/fi';

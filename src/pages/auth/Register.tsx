@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { useAuth } from '../../context/useAuth';
+import { useAuth } from '../../context/providers/AuthProvider/useAuth';
 import RegisterForm from '../../components/auth/RegisterForm';
 import type { RegisterFormData } from '../../components/auth/RegisterForm';
 

@@ -1,7 +1,7 @@
 import { FiSearch, FiMail } from 'react-icons/fi';
 import InputGroup from './InputGroup';
 import { Input } from './';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta = {
   title: 'Components/Input/InputGroup',

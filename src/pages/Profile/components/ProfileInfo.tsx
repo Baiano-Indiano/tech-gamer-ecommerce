@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../../context/useAuth';
+import { useAuth } from '../../../context/providers/AuthProvider/useAuth';
 import styled from 'styled-components';
 import { FiEdit2, FiSave, FiX } from 'react-icons/fi';
 import { formatDate } from '../../../utils/formatters/date';

@@ -47,11 +47,13 @@ export const colors: ThemeColors = {
   backgroundSecondaryDark: '#111827',
   
   // Texto
-  text: '#1f2937',
-  textSecondary: '#4b5563',
-  textTertiary: '#6b7280',
-  textDark: '#f9fafb',
-  textSecondaryDark: '#e5e7eb',
+  text: {
+    primary: '#1f2937',
+    secondary: '#4b5563',
+    tertiary: '#6b7280',
+    dark: '#f9fafb',
+    secondaryDark: '#e5e7eb',
+  },
   
   // Bordas
   border: '#e5e7eb',

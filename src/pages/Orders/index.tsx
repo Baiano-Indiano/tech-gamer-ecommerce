@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/useAuth';
+import { useAuth } from '../../context/providers/AuthProvider/useAuth';
 import { useTranslation } from 'react-i18next';
 import { formatDate } from '../../utils/formatters/date';
 import styled from 'styled-components';

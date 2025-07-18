@@ -48,11 +48,13 @@ export interface ThemeColors {
   backgroundSecondaryDark: string;
   
   // Cores de texto
-  text: string;
-  textSecondary: string;
-  textTertiary: string;
-  textDark: string;
-  textSecondaryDark: string;
+  text: {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    dark: string;
+    secondaryDark: string;
+  };
   
   // Cores de borda
   border: string;

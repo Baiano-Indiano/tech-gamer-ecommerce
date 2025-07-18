@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import styled, { keyframes } from 'styled-components';
-import { useFavorites } from '../../context/FavoritesProvider';
-import type { Product } from '../../constants/mockProducts';
+import { useFavorites } from '../../context/providers/FavoritesProvider/FavoritesProvider';
+import type { Product } from '../../types/product';
 
 const pulse = keyframes`
   0% { transform: scale(1); }
